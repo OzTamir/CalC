@@ -11,3 +11,4 @@ Tasks:
 - [ ] Support for order of operations  
 - [ ] Support for negative numbers  
 - [ ] Support for advance operators (power and factorial)  
+- [ ] Support for floating point numbers  
