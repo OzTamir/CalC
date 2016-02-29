@@ -6,26 +6,36 @@
 #define CALC_EXPRESSION_H
 
 #include <string>
-
-#include "Number.h"
 #include "Operator.h"
 
-class Expression : public Number {
+class Expression {
 public:
+    Expression();
+    //Expression(const Expression &src);
     Expression(std::string stringValue);
-    Expression(Number *lval, Number *rval, Operator *op);
-    void evaluate();
+    Expression(double value);
+    Expression(Expression* lval, Expression* rval, Operator* op);
 
-    Number* GetNumberValue();
-    Operator* GetOpValue();
-    bool isNumber();
+    double Evaluate();
+
+    void SetValue(double value);
+    void SetLVal(Expression* lval);
+    void SetRVal(Expression* rval);
+    void SetOperator(Operator* op);
+
+    double GetValue();
+    Expression* GetLVal();
+    Expression* GetRVal();
+    Operator* GetOperator();
+    std::string GetStringValue();
 
 private:
-    Number *lval;
-    Number *rval;
-    Operator *op;
-    Number *value;
-    bool isNum;
+    double value;
+    std::string strValue;
+    Expression *lval, *rval;
+    Operator* op;
+    bool hasValue;
+
 };
 
 

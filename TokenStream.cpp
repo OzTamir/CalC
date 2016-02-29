@@ -2,6 +2,7 @@
 // Created by Oz Tamir on 28/02/2016.
 //
 
+#include <iostream>
 #include "TokenStream.h"
 
 TokenStream::TokenStream(std::string *stringStream) :
@@ -10,25 +11,9 @@ TokenStream::TokenStream(std::string *stringStream) :
     parseStream(stringStream);
 }
 
-Number TokenStream::evaluateStream() {
-    Number result;
-    Number a, b;
-    Operator op;
-    for (std::vector<Expression>::iterator it = tokenStream.begin(); it < tokenStream.end(); ++it) {
-        if (it == tokenStream.begin()) {
-            a = *it->GetNumberValue();
-            it++;
-        }
-        else {
-            a = result;
-        }
-        op = *it->GetOpValue();
-        it++;
-        b = *it->GetNumberValue();
-        result = *op.eval(&a, &b);
-    }
-
-    return result;
+double TokenStream::evaluateStream() {
+    Expression* tree = createTree(tokenStream);
+    return tree->Evaluate();
 }
 
 void TokenStream::parseStream(std::string *stream) {
@@ -36,12 +21,34 @@ void TokenStream::parseStream(std::string *stream) {
     for (std::string::iterator it = stream->begin(); it < stream->end(); ++it) {
         if (*it == ' ') {
             // TODO: What if the stream starts with a space?
-            tokenStream.push_back(Expression(temp));
+            tokenStream.push_back(new Expression(temp));
             temp = "";
         }
         else {
             temp += *it;
         }
     }
-    tokenStream.push_back(Expression(temp));
+    if (temp.length() != 0)
+        tokenStream.push_back(new Expression(temp));
+}
+
+Expression* TokenStream::createTree(std::vector<Expression *> stream) {
+    if (stream.size() == 1) {
+        return stream.at(0);
+    }
+    Expression* result = new Expression();
+    result->SetRVal(stream.back());
+    stream.pop_back();
+
+    result->SetOperator(stream.back()->GetOperator());
+    stream.pop_back();
+
+    if (stream.size() > 1) {
+        result->SetLVal(createTree(stream));
+    }
+    else {
+        result->SetLVal(stream.back());
+    }
+
+    return result;
 }

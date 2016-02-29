@@ -8,19 +8,19 @@ Operator::Operator(std::string op) {
     op_char = op;
 }
 
-Number* Operator::eval(Number *lval, Number *rval) {
+double Operator::eval(double lval, double rval) {
     // TODO: Make op_char into an enum and replace this if chain with a switch
     if (op_char == "+")
-        return new Number(lval->Get() + rval->Get());
+        return lval + rval;
     if (op_char == "-")
-        return new Number(lval->Get() - rval->Get());
+        return lval - rval;
     if (op_char == "*")
-        return new Number(lval->Get() * rval->Get());
+        return lval * rval;
     if (op_char == "/")
         // TODO: What if rval is 0?
-        return new Number(lval->Get() / rval->Get());
+        return lval / rval;
     // TODO: What else?
-    return new Number(-1);
+    return -1;
 }
 
 std::string Operator::GetOperator() {

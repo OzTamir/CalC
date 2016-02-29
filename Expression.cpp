@@ -2,41 +2,86 @@
 // Created by Oz Tamir on 28/02/2016.
 //
 
+#include <iostream>
 #include "Expression.h"
 
-Expression::Expression(Number *lval, Number *rval, Operator *op) {
-    this->lval = lval;
-    this->rval = rval;
-    this->op = op;
-
-    evaluate();
-}
-
-void Expression::evaluate() {
-    this->value = op->eval(lval, rval);
-}
-
-Number* Expression::GetNumberValue() {
-    return this->value;
+Expression::Expression(double value) {
+    this->value = value;
+    hasValue = true;
 }
 
 Expression::Expression(std::string stringValue) {
     if (Operator::isOperator(stringValue)) {
-        op = new Operator(stringValue);
-        value = NULL;
-        isNum = false;
+        this->op = new Operator(stringValue);
+        hasValue = false;
     }
     else {
-        value = new Number(stringValue);
-        op = NULL;
-        isNum = true;
+        this->value = std::stod(stringValue);
+        hasValue = true;
     }
+    this->strValue = stringValue;
 }
 
-bool Expression::isNumber() {
-    return isNum;
+double Expression::Evaluate() {
+    if (hasValue)
+        return this->value;
+    return op->eval(lval->Evaluate(), rval->Evaluate());
 }
 
-Operator *Expression::GetOpValue() {
-    return this->op;
+Expression::Expression(Expression* lval, Expression* rval, Operator *op) {
+    this->lval = lval;
+    this->rval = rval;
+    this->op = op;
+    hasValue = false;
 }
+
+void Expression::SetValue(double value) {
+    this->value = value;
+    hasValue = true;
+}
+
+void Expression::SetLVal(Expression* lval) {
+    this->lval = lval;
+}
+
+void Expression::SetRVal(Expression* rval) {
+    this->rval = rval;
+}
+
+void Expression::SetOperator(Operator *op) {
+    this->op = op;
+}
+
+double Expression::GetValue() {
+    return value;
+}
+
+Expression* Expression::GetLVal() {
+    return lval;
+}
+
+Expression* Expression::GetRVal() {
+    return rval;
+}
+
+Operator *Expression::GetOperator() {
+    return op;
+}
+
+Expression::Expression() {
+    hasValue = false;
+}
+
+std::string Expression::GetStringValue() {
+    return this->strValue;
+}
+
+//Expression::Expression(const Expression &src) {
+//    this->value = src.value;
+//    lval = new Expression();
+//    rval = new Expression();
+//    op = new Operator();
+//    this->lval = src.lval;
+//    this->rval = src.rval;
+//    this->op = src.op;
+//}

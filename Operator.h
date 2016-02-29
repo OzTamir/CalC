@@ -5,7 +5,6 @@
 #ifndef CALC_OPERATOR_H
 #define CALC_OPERATOR_H
 
-#include "Number.h"
 #include <string>
 
 class Operator {
@@ -13,7 +12,7 @@ class Operator {
 public:
     Operator();
     Operator(std::string op);
-    Number* eval(Number *lval, Number *rval);
+    double eval(double lval, double rval);
     std::string GetOperator();
 
     static bool isOperator(std::string str);

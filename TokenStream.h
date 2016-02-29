@@ -9,19 +9,18 @@
 #include <vector>
 
 #include "Operator.h"
-#include "Number.h"
-
 #include "Expression.h"
 
 class TokenStream {
 
 public:
     TokenStream(std::string *stringStream);
-    Number evaluateStream();
+    double evaluateStream();
 
 private:
     void parseStream(std::string *stream);
-    std::vector<Expression> tokenStream;
+    Expression* createTree(std::vector<Expression *> stream);
+    std::vector<Expression *> tokenStream;
 
 };
 

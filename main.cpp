@@ -6,6 +6,6 @@ int main() {
     std::string input;
     getline(std::cin, input);
     TokenStream ts(&input);
-    std::cout << ts.evaluateStream().Get() << std::endl;
+    std::cout << "Result: " << ts.evaluateStream() << std::endl;
     return 0;
 }
