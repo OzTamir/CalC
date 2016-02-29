@@ -3,5 +3,5 @@ project(CalC__)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp TokenStream.cpp TokenStream.h Operator.cpp Operator.h Expression.cpp Expression.h)
+set(SOURCE_FILES main.cpp CalC/TokenStream.cpp CalC/TokenStream.h CalC/Operator.cpp CalC/Operator.h CalC/Expression.cpp CalC/Expression.h)
 add_executable(CalC__ ${SOURCE_FILES})

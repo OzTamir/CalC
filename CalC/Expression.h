@@ -11,7 +11,6 @@
 class Expression {
 public:
     Expression();
-    //Expression(const Expression &src);
     Expression(std::string stringValue);
     Expression(double value);
     Expression(Expression* lval, Expression* rval, Operator* op);

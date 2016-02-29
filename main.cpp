@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "TokenStream.h"
+#include "CalC/TokenStream.h"
 
 int main() {
     std::string input;

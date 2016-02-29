@@ -2,7 +2,6 @@
 // Created by Oz Tamir on 28/02/2016.
 //
 
-#include <iostream>
 #include "Expression.h"
 
 Expression::Expression(double value) {
@@ -75,13 +74,3 @@ Expression::Expression() {
 std::string Expression::GetStringValue() {
     return this->strValue;
 }
-
-//Expression::Expression(const Expression &src) {
-//    this->value = src.value;
-//    lval = new Expression();
-//    rval = new Expression();
-//    op = new Operator();
-//    this->lval = src.lval;
-//    this->rval = src.rval;
-//    this->op = src.op;
-//}
